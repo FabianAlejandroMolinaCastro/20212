@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="universidad">
+        <item>--selccione--</item>
+        <item>Universidad libre</item>
+        <item>Universidad del Bosque</item>
+        <item>Universidad santo tomas</item>
+        <item>Universidad catolica</item>
+        <item>Universidad de los andes</item>
+    </string-array>
+</resources>
