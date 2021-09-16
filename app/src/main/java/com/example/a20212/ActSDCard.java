@@ -10,6 +10,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.io.BufferedReader;
+import java.io.IOError;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 
@@ -64,13 +68,39 @@ private boolean DisponibleSD, AccesoEscrituraSD;
                     archivo.write(tbtexto.getText().toString());
                     archivo.flush();
                     archivo.close();
-                    Toast.makeText(getApplicationContext(),"Error de escritura en la SD",Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(),"Se ha escrito correctamente en la SD",Toast.LENGTH_LONG).show();
 
-        }catch (Exception error){
+        }catch (IOException error){
             Toast.makeText(getApplicationContext(),"Error al escribir en la SD",Toast.LENGTH_LONG).show();
         }
     }
     public void leerFicheroMemoriaExterna(){
+       String[] archivos=fileList();
 
+       if(existe(archivos,"ficheroprueba.txt")){
+           try{
+               InputStreamReader archivo= new InputStreamReader(openFileInput("ficheroprueba.txt"));
+               BufferedReader br= new BufferedReader(archivo);
+               String linea= br.readLine();
+               String todo="";
+               while (linea!=null){
+                   todo=todo+linea+"\n";
+                   linea=br.readLine();
+               }
+               br.close();
+               archivo.close();
+               tbtexto.setText(todo);
+           }catch (IOException e){
+               Toast.makeText(getApplicationContext(),"Error de lectura",Toast.LENGTH_LONG).show();
+
+           }
+       }
+
+    }
+    private boolean existe( String[] archivos,String arcbuscar){
+for (int f=0; f< archivos.length;f++)
+    if(arcbuscar.equals((archivos[f])))
+        return true;
+    return false;
     }
 }
